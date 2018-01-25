@@ -1,6 +1,7 @@
 package com.packt.webstore.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import com.packt.webstore.domain.repository.ProductRepository;
 import com.packt.webstore.service.ProductService;
@@ -33,6 +34,7 @@ public class ProductController {
     @RequestMapping("/products")
     public String list(Model model) {
         model.addAttribute("products", productService.getAllProducts());
+        ArrayList<Product> products;
         return "products";
     }
 
