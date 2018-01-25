@@ -34,7 +34,6 @@ public class ProductController {
     @RequestMapping("/products")
     public String list(Model model) {
         model.addAttribute("products", productService.getAllProducts());
-        ArrayList<Product> products;
         return "products";
     }
 
