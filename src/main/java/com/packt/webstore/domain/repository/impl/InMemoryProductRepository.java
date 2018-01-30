@@ -24,7 +24,7 @@ public class InMemoryProductRepository implements ProductRepository {
 
     @Override
     public List<Product> getAllProducts() {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         List<Product> result = jdbcTemplate.query("SELECT * FROM products", params, new ProductMapper());
 
         return result;
@@ -50,7 +50,7 @@ public class InMemoryProductRepository implements ProductRepository {
     @Override
     public List<Product> getProductsByCategory(String category) {
         String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category";
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("category", category);
         return jdbcTemplate.query(SQL, params, new ProductMapper());
     }
@@ -62,5 +62,11 @@ public class InMemoryProductRepository implements ProductRepository {
         params.put("unitsInStock", noOfUnits);
         params.put("id", productId);
         jdbcTemplate.update(SQL, params);
+    }
+
+    @Override
+    public List<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
+        String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY IN (:categories) AND MANUFACTURER IN (:brands)";
+        return jdbcTemplate.query(SQL, filterParams, new ProductMapper());
     }
 }
