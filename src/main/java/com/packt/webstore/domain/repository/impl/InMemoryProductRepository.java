@@ -63,4 +63,12 @@ public class InMemoryProductRepository implements ProductRepository {
         params.put("id", productId);
         jdbcTemplate.update(SQL, params);
     }
+
+    @Override
+    public Product getProductById(String productID) {
+        String SQL = "SELECT * FROM PRODUCTS WHERE ID = :id";
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", productID);
+        return jdbcTemplate.queryForObject(SQL, params, new ProductMapper());
+    }
 }
