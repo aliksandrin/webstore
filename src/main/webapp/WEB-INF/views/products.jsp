@@ -18,6 +18,14 @@
 </section>
 <section class="container">
 <div class="row">
+<div class="col-sm-6 col-md-3">
+<h2>Brands</h2>
+<c:forEach items="${products}" var="product">
+<ul>
+    <a href="<c:url value = "/products/filter/params;brands=${product.manufacturer};"/>"><li>${product.manufacturer}</li></a>
+</ul>
+</c:forEach>
+</div>
 <c:forEach items="${products}" var="product">
 <div class="col-sm-6 col-md-3">
 <div class="thumbnail">
