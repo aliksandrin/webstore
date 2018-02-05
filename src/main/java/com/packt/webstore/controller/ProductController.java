@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.packt.webstore.domain.Product;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("market")
@@ -50,11 +49,5 @@ public class ProductController {
         model.addAttribute("products",
                 productService.getProductsByCategory(productCategory));
         return "products";
-    }
-
-    @RequestMapping("/product")
-    public String getProductById(@RequestParam("id") String productId, Model model) {
-        model.addAttribute("product", productService.getProductById(productId));
-        return "product";
     }
 }
