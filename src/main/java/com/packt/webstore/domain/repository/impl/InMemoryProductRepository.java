@@ -71,4 +71,6 @@ public class InMemoryProductRepository implements ProductRepository {
         params.put("id", productID);
         return jdbcTemplate.queryForObject(SQL, params, new ProductMapper());
     }
+
+
 }
