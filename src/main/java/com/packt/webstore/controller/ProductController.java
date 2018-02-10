@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import com.packt.webstore.domain.Product;
 
 @Controller
-@RequestMapping("market")
+@RequestMapping("/")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -42,7 +42,7 @@ public class ProductController {
     public String updateStock(Model model) {
         productService.updateAllStock();
 
-        return "redirect:/market/products";
+        return "redirect:/products";
     }
 
     @RequestMapping("/products/{category}")
@@ -84,6 +84,6 @@ public class ProductController {
     @RequestMapping(value = "/products/add", method = RequestMethod.POST)
     public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct) {
         productService.addProduct(newProduct);
-        return "redirect:/market/products";
+        return "redirect:/products";
     }
 }

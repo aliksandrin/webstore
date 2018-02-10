@@ -45,7 +45,7 @@ ${product.unitsInStock}
 <span class="glyphicon-shopping-cart glyphicon">
 </span> Order Now
 </a>
-<a href="<spring:url value="/market/products" />" class="btn
+<a href="<spring:url value="/products" />" class="btn
         btn-default">
         <span class="glyphicon-hand-left glyphicon"></span> back
         </a>

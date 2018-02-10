@@ -22,10 +22,8 @@ public class InMemoryProductRepository implements ProductRepository {
 
     @Override
     public List<Product> getAllProducts() {
-        Map<String, Object> params = new HashMap<String, Object>();
-        List<Product> result = jdbcTemplate.query("SELECT * FROM products", params, new ProductMapper());
-
-        return result;
+        Map<String, Object> params = new HashMap<>();
+        return jdbcTemplate.query("SELECT * FROM products", params, new ProductMapper());
     }
 
     private static final class ProductMapper implements RowMapper<Product> {
@@ -89,17 +87,7 @@ public class InMemoryProductRepository implements ProductRepository {
 
     @Override
     public void addProduct(Product product) {
-        String SQL = "INSERT INTO PRODUCTS (ID, "
-                + "NAME,"
-                + "DESCRIPTION,"
-                + "UNIT_PRICE,"
-                + "MANUFACTURER,"
-                + "CATEGORY,"
-                + "CONDITION,"
-                + "UNITS_IN_STOCK,"
-                + "UNITS_IN_ORDER,"
-                + "DISCONTINUED) "
-                + "VALUES (:id, :name, :desc, :price,:manufacturer, :category, :condition, :inStock,:inOrder, :discontinued)";
+        String SQL = "INSERT INTO PRODUCTS VALUES (:id, :name, :desc, :price, :manufacturer, :category, :condition, :inStock, :inOrder, :discontinued)";
         Map<String, Object> params = new HashMap<>();
         params.put("id", product.getProductId());
         params.put("name", product.getName());
