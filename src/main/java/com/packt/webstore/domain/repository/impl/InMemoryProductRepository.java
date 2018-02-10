@@ -2,9 +2,7 @@ package com.packt.webstore.domain.repository.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation
         .Autowired;
@@ -50,7 +48,7 @@ public class InMemoryProductRepository implements ProductRepository {
     @Override
     public List<Product> getProductsByCategory(String category) {
         String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = :category";
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("category", category);
         return jdbcTemplate.query(SQL, params, new ProductMapper());
     }
@@ -67,7 +65,7 @@ public class InMemoryProductRepository implements ProductRepository {
     @Override
     public Product getProductById(String productID) {
         String SQL = "SELECT * FROM PRODUCTS WHERE ID = :id";
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", productID);
         return jdbcTemplate.queryForObject(SQL, params, new ProductMapper());
     }
@@ -76,5 +74,43 @@ public class InMemoryProductRepository implements ProductRepository {
     public List<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
         String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY IN (:categories ) AND MANUFACTURER IN ( :brands)";
         return jdbcTemplate.query(SQL, filterParams, new ProductMapper());
+    }
+
+    @Override
+    public List<Product> filterProducts(String productCategory, Map<String, List<String>> filterPrice, String productBrand) {
+        String SQL = "SELECT * FROM PRODUCTS WHERE CATEGORY = ':category' AND UNIT_PRICE > :low AND UNIT_PRICE < :high AND MANUFACTURER = ':brand'";
+        Map<String, Object> params = new HashMap<>(filterPrice);
+        //filterPrice.put("brand", new ArrayList<String>(Arrays.asList(new String[]{productBrand})));
+        //filterPrice.put("category", new ArrayList<String>(Arrays.asList(new String[]{productCategory})));
+        params.put("brand", productBrand);
+        params.put("category", productCategory);
+        return jdbcTemplate.query(SQL, params, new ProductMapper());
+    }
+
+    @Override
+    public void addProduct(Product product) {
+        String SQL = "INSERT INTO PRODUCTS (ID, "
+                + "NAME,"
+                + "DESCRIPTION,"
+                + "UNIT_PRICE,"
+                + "MANUFACTURER,"
+                + "CATEGORY,"
+                + "CONDITION,"
+                + "UNITS_IN_STOCK,"
+                + "UNITS_IN_ORDER,"
+                + "DISCONTINUED) "
+                + "VALUES (:id, :name, :desc, :price,:manufacturer, :category, :condition, :inStock,:inOrder, :discontinued)";
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", product.getProductId());
+        params.put("name", product.getName());
+        params.put("desc", product.getDescription());
+        params.put("price", product.getUnitPrice());
+        params.put("manufacturer", product.getManufacturer());
+        params.put("category", product.getCategory());
+        params.put("condition", product.getCondition());
+        params.put("inStock", product.getUnitsInStock());
+        params.put("inOrder", product.getUnitsInOrder());
+        params.put("discontinued", product.isDiscontinued());
+        jdbcTemplate.update(SQL, params);
     }
 }

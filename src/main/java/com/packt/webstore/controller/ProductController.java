@@ -11,11 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.MatrixVariable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.packt.webstore.domain.Product;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("market")
@@ -61,14 +58,32 @@ public class ProductController {
         return "product";
     }
 
+    //http://localhost:8080/market/products/filter/params;brands=Google,Dell;categories=Tablet,Laptop
     @RequestMapping("/products/filter/{params}")
     public String getProductsByFilter(@MatrixVariable(pathVar = "params") Map<String, List<String>> filterParams, Model model) {
         model.addAttribute("products", productService.getProductsByFilter(filterParams));
         return "products";
     }
 
-    @RequestMapping("/products/{category}/price")
-    public String filterProducts() {
-        return null;
+    //http://localhost:8080/webstore/products/Tablet/price;low=200;high=400?brand="Google"
+    @RequestMapping("/products/{category}/{price}")
+    public String filterProducts(@PathVariable("category") String productCategory,
+                                 @MatrixVariable(pathVar = "price") Map<String, List<String>> filterPrice,
+                                 @RequestParam("brand") String productBrand, Model model) {
+        model.addAttribute("products", productService.filterProducts(productCategory, filterPrice, productBrand));
+        return "products";
+    }
+
+    @RequestMapping(value = "/products/add", method = RequestMethod.GET)
+    public String getAddNewProductForm(Model model) {
+        Product newProduct = new Product();
+        model.addAttribute("newProduct", newProduct);
+        return "addProduct";
+    }
+
+    @RequestMapping(value = "/products/add", method = RequestMethod.POST)
+    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct) {
+        productService.addProduct(newProduct);
+        return "redirect:/market/products";
     }
 }
