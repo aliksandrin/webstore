@@ -21,10 +21,21 @@ public class InMemoryCustomerRepository implements CustomerRepository{
 
     @Override
     public List<Customer> getAllCustomers() {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         List<Customer> result = jdbcTemplate.query("SELECT * FROM CUSTOMERS", params, new CustomerMapper());
 
         return result;
+    }
+
+    @Override
+    public void addNewCustomer(Customer newCustomer) {
+        String SQL = "INSERT INTO CUSTOMERS VALUES (:id, :name, :address, :noofordersmade)";
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", newCustomer.getCustomerId());
+        params.put("name", newCustomer.getName());
+        params.put("address", newCustomer.getAddress());
+        params.put("noofordersmade", true);
+        jdbcTemplate.update(SQL, params);
     }
 
     private static final class CustomerMapper implements RowMapper<Customer> {
@@ -37,4 +48,6 @@ public class InMemoryCustomerRepository implements CustomerRepository{
             return customer;
         }
     }
+
+
 }
