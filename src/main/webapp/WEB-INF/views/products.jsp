@@ -22,6 +22,7 @@
 <c:forEach items="${products}" var="product">
 <div class="col-sm-6 col-md-3">
 <div class="thumbnail">
+<img src="<c:url value="/img/${product.productId}.png"> </c:url>" alt="image" style = "width:100%"/>
 <div class="caption"  style="box-shadow: 0px 0px 40px 3px rgba(0, 0, 0, 0.15); text-align: center; padding: 10px; cursor: pointer; height: 300px; ">
 <h3>${product.name}</h3>
 <p>${product.description}</p>
