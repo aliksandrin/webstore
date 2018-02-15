@@ -72,6 +72,14 @@
 <form:input id="productImage" path="productImage" type="file" class="form:input-large" />
 </div>
 </div>
+
+<div class="form-group">
+<label class="control-label col-lg-2" for="productManualPDF"> <spring:message code="addProduct.form.productManualPDF.label"/>
+</label>
+<div class="col-lg-10">
+<form:input id="productManualPDF" path="productManualPDF" type="file" class="form:input-large" />
+</div>
+</div>
 <div class="form-group">
 <label class="control-label col-lg-2" for="condition"><spring:message code="addProduct.form.productCondition.label"/></label>
 <div class="col-lg-10">
