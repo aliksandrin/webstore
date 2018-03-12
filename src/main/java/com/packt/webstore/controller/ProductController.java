@@ -135,7 +135,8 @@ public class ProductController {
                 "unitsInStock",
                 "condition",
                 "productImage",
-                "productManualPDF");
+                "productManualPDF",
+                "language");
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
@@ -146,5 +147,10 @@ public class ProductController {
         mav.addObject("url", req.getRequestURL() + "?" + req.getQueryString());
         mav.setViewName("productNotFound");
         return mav;
+    }
+
+    @RequestMapping("/products/invalidPromoCode")
+    public String invalidPromoCode() {
+        return "invalidPromoCode";
     }
 }

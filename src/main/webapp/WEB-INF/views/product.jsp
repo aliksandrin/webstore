@@ -10,6 +10,11 @@
 </head>
 <body>
 <section>
+<div class="pull-right" style="padding-right:50px">
+<a href="?language=en" >English</a>|<a href="?language=nl" >Dutch </a>
+</div>
+</section>
+<section>
 <div class="jumbotron">
 <div class="container">
 <h1>Products</h1>
@@ -50,8 +55,7 @@ ${product.unitsInStock}
 <span class="glyphicon-shopping-cart glyphicon">
 </span> Order Now
 </a>
-<a href="<spring:url value="/products" />" class="btn
-        btn-default">
+<a href="<spring:url value="/products" />" class="btn btn-default">
         <span class="glyphicon-hand-left glyphicon"></span> back
         </a>
 </p>
