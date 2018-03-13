@@ -5,17 +5,27 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <title>Products</title>
 </head>
 <body>
-<section>
-<div class="pull-right" style="padding-right:50px">
-<a href="?language=en" >English</a>|<a href="?language=nl" >Dutch </a>
-</div>
-</section>
+
 <section>
 <div class="jumbotron">
+<div class="dropdown col-md-5">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Language
+  </button>
+  <div class="dropdown-menu">
+      <a class="dropdown-item" href="?language=en" >English</a>
+      <a class="dropdown-item" href="?language=nl" >Dutch </a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="<c:url value="/logout" />">Logout</a>
+    </div>
+</div>
 <div class="container">
 <h1>Products</h1>
 </div>

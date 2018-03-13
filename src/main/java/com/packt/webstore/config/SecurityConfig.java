@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/**/add")
                 .access("hasRole('ADMIN')")
-                .antMatchers("/**/products/**")
+                .antMatchers("/**/products")
                 .access("hasRole('USER')");
         httpSecurity.csrf().disable();
     }

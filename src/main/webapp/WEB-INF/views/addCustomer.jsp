@@ -12,6 +12,7 @@
 <body>
 <section>
 <div class="jumbotron">
+<a class="dropdown-item" href="<c:url value="/logout" />">Logout</a>
 <div class="container">
 <h1>Customer</h1>
 <p>register</p>
